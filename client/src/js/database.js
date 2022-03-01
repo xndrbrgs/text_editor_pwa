@@ -12,8 +12,17 @@ const initdb = async () =>
     },
   });
 
+// Adds the text onto the database
+export const putDb = async (content) => {
+  console.log('PUT from the database');
 
-export const putDb = async (content) => console.error('putDb not implemented');
+  const jateDb = await openDB('jate', 1);
+  const tx = jateDb.transaction('jate', 'readwrite');
+  const store = tx.objectStore('jate');
+  const request = store.get({value: content, id: 1});
+  const result = await request;
+  console.log(result);
+}
 
 // Gets the text back from the database
 export const getDb = async () => {
